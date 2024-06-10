@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f6f6f6;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1000px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            flex: 1;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .login-container {
+            border-right: 1px solid #ddd;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #5cb85c;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        #email_error, #pass_error {
+            color: red;
+            display: none;
+        }
+    </style>
+    <script>
+        function validateLogin() {
+            var email = document.forms["login_form"]["email"].value;
+            var password = document.forms["login_form"]["password"].value;
+            var email_error = document.getElementById("login_email_error");
+            var pass_error = document.getElementById("login_pass_error");
+
+            email_error.style.display = "none";
+            pass_error.style.display = "none";
+
+            if (email == "") {
+                email_error.style.display = "block";
+                return false;
+            }
+            if (password == "") {
+                pass_error.style.display = "block";
+                return false;
+            }
+            return true;
+        }
+
+        function validateSignup() {
+            var email = document.forms["signup_form"]["email"].value;
+            var password = document.forms["signup_form"]["password"].value;
+            var name = document.forms["signup_form"]["name"].value;
+            var age = document.forms["signup_form"]["age"].value;
+            var r_pwd = document.forms["signup_form"]["r_pwd"].value;
+            var email_error = document.getElementById("signup_email_error");
+            var pass_error = document.getElementById("signup_pass_error");
+
+            email_error.style.display = "none";
+            pass_error.style.display = "none";
+
+            if (email == "" || password == "" || name == "" || age == "" || r_pwd == "") {
+                email_error.style.display = "block";
+                return false;
+            }
+            if (password != r_pwd) {
+                pass_error.style.display = "block";
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container login-container">
+            <form name="login_form" method="post" action="/login_s" onsubmit="return validateLogin()">
+                <h2>Login</h2>
+                <input type="text" name="email" placeholder="Email or Phone Number">
+                <div id="login_email_error">Please fill up your Email or Phone</div>
+                <input type="password" name="password" placeholder="Password">
+                <div id="login_pass_error">Please fill up your Password</div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <div class="form-container signup-container">
+            <form name="signup_form" method="post" action="/signup_s" onsubmit="return validateSignup()">
+                <h2>Sign Up</h2>
+                <input type="text" name="email" placeholder="Email or Phone Number">
+                <div id="signup_email_error">Please fill up all fields</div>
+                <input type="text" name="name" placeholder="Name">
+                <input type="text" name="age" placeholder="Age">
+                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="r_pwd" placeholder="Re-Enter Password">
+                <div id="signup_pass_error">Passwords do not match</div>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
